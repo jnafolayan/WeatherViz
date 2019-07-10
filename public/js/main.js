@@ -38,6 +38,7 @@ function init() {
 
     fetch(`https://api.darksky.net/forecast/14c7911ea7429f47bda5beea8570ce98/${latitude},${longitude}?exclude=minutely,hourly,daily,alerts,flags`, {
       method: 'GET',
+      mode: 'cors',
       headers: {
         'Content-Type': 'application/json'
       }
@@ -47,6 +48,8 @@ function init() {
       cloudCover = data.currently.cloudCover;
       windSpeed = data.currently.windSpeed;
       windBearing = data.currently.windBearing;
+
+      document.querySelector('.wrapper').classList.remove('loading');
       loop();
     });
   }, err => console.error(err.message));

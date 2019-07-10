@@ -5,15 +5,18 @@
     <meta charset="utf-8">
     <meta name="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>WeatherWiz</title>
+    <title>WeatherViz</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
   <body>
-    <div class="wrapper">
+    <div class="wrapper loading">
       <header class="title">
         <h2 class="title__heading">Weather<span>Viz</span></h2>
         <p class="title__info"><small>2d weather visualization</small></p>
       </header>
+
+      <p class="process">Gathering weather info...</p>
+
       <section class="board">
         <canvas id="boardCanvas" class="board__canvas" width="320" height="320">
           <p>Your browser does not support the HTML5 Canvas. Please upgrade to the latest version of Chrome, Firefox or Edge</p>

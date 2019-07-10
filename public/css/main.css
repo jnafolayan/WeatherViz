@@ -7,6 +7,7 @@
 body {
   font-family: Consolas, sans-serif;
   background: rgb(20, 20, 20);
+  font-size: 16px;
 }
 
 .wrapper {
@@ -34,6 +35,14 @@ body {
   color: #bbb;
 }
 
+.process {
+  margin-top: 50px;
+  color: #fff;
+  font-size: 2rem;
+  text-align: center;
+  display: none;
+}
+
 .board {
   max-width: 767px;
   margin: 20px auto;
@@ -41,6 +50,18 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+}
+
+.wrapper.loading .process {
+  display: block;
+}
+
+.wrapper.loading .board {
+  display: none;
+}
+
+.wrapper.loading .credit {
+  display: none;
 }
 
 @media (min-width: 768px) {
