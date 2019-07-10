@@ -1,0 +1,10 @@
+{
+  "name": "WeatherViz",
+  "version": "1.0.0",
+  "description": "Weather visualization for a geographical location",
+  "main": "index.js",
+  "repository": "https://github.com/jnafolayan/WeatherViz.git",
+  "author": "John Afolayan (jnafolayan@gmail.com)",
+  "license": "MIT",
+  "private": false
+}

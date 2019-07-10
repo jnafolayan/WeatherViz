@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>WeatherWiz</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="title">
+        <h2 class="title__heading">Weather<span>Viz</span></h2>
+        <p class="title__info"><small>2d weather visualization</small></p>
+      </header>
+      <section class="board">
+        <canvas id="boardCanvas" class="board__canvas" width="320" height="320">
+          <p>Your browser does not support the HTML5 Canvas. Please upgrade to the latest version of Chrome, Firefox or Edge</p>
+        </canvas>
+        <div class="stats">
+          <h5 id="geoloc" class="stats__coords">12.33° 10.21°</h5>
+          <p id="weatherSummary" class="stats__summary">Light rain stopping in 13 min., starting again 30 min. later.</p>
+          <p class="stats__atemp">Feels like <span id="apparentTemp">61.2°C</span></p>
+        </div>
+      </section>
+      <p class="credit">
+        <a href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
+      </p>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
