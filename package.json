@@ -8,6 +8,11 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "serve": "node server.js"
+    "serve": "node server.js",
+    "deploy": "push-dir --dir=public --branch=gh-pages clean"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "push-dir": "^0.4.1"
   }
 }
