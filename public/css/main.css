@@ -68,7 +68,7 @@ body {
   .board {
     flex-direction: row;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: space-around;
   }
 }
 
@@ -98,6 +98,7 @@ body {
   font-style: italic;
   font-size: 16px;
   margin-top: 10px;
+  display: none;
 }
 
 .credit {

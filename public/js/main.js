@@ -34,28 +34,37 @@ function init() {
   getClientLocation(position => {
     const { latitude, longitude } = position.coords;
     const geoloc = document.querySelector('#geoloc');
-    geoloc.innerHTML = `${latitude.toPrecision(2)}°C ${longitude.toPrecision(2)}°C`;
+    const weatherSummary = document.querySelector('#weatherSummary');
+    const tempFeel = document.querySelector('.stats__atemp');
+    const apparentTemp = document.querySelector('#apparentTemp');
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=b406b30cf8dbd15a42c8820cf94b8c2c`, {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(console.log)
-    .then(resp => resp.json())
-    .then((data) => {
-      console.log(data)
-      temperature = `${data.main.temperature}°C`;
-      weatherType = data.weather.main.toLowerCase();
-      cloudCover = data.clouds.all / 2;
-      windSpeed = data.wind.speed;
-      windBearing = data.wind.deg;
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=b406b30cf8dbd15a42c8820cf94b8c2c`)
+      .then(({ data }) => {
+        geoloc.innerHTML = `${data.coord.lat}° ${data.coord.lon}°`;
 
-      document.querySelector('.wrapper').classList.remove('loading');
-      loop();
-    });
+        temperature = `${Math.floor(data.main.temp - 273)}°C`;
+        weatherType = data.weather[0].main.toLowerCase();
+        cloudCover = data.clouds.all * 0 + 1;
+        windSpeed = data.wind.speed;
+        windBearing = data.wind.deg;
+
+        document.querySelector('.wrapper').classList.remove('loading');
+
+        weatherSummary.innerHTML = capitalize(data.weather[0].description);
+
+        if (data.main.temp != data.main.temp_max) {
+          tempFeel.style.display = 'block';
+          apparentTemp.innerHTML = `${Math.floor(data.main.temp_max - 273)}°C`;
+        }
+
+        loop();
+      });
+
+    function capitalize(string) {
+      return string.split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.substr(1))
+        .join(' ');
+    }
   }, err => console.error(err.message));
 }
 
@@ -106,7 +115,7 @@ function drawScene() {
   ctx.textAlign = 'center';
   ctx.shadowBlur = 10;
   ctx.shadowColor = 'hsl(210, 100%, 50%)';
-  ctx.fillText('60°C', width / 2, height * 0.7);
+  ctx.fillText(temperature, width / 2, height * 0.7);
   ctx.restore();
 }
 
@@ -140,7 +149,7 @@ function drawRaindrops() {
 }
 
 function makeRaindrop() {
-  const angle = windBearing * Math.PI / 180;
+  const angle = 100 * Math.PI / 180;
   const length = random(10, 30);
   const vx = Math.cos(angle) * SPEED_SCALE * windSpeed;
   const vy = Math.sin(angle) * SPEED_SCALE * windSpeed;
