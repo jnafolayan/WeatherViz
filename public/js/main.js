@@ -36,7 +36,7 @@ function init() {
     const geoloc = document.querySelector('#geoloc');
     geoloc.innerHTML = `${latitude.toPrecision(2)}°C ${longitude.toPrecision(2)}°C`;
 
-    fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=b406b30cf8dbd15a42c8820cf94b8c2c`, {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=b406b30cf8dbd15a42c8820cf94b8c2c`, {
       method: 'GET',
       mode: 'cors',
       headers: {
