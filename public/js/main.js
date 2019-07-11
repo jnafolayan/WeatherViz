@@ -10,6 +10,7 @@ let tick = 0, dt = 0, lt = null, time;
 
 // state
 let raindrops, weatherType, temperature, cloudCover, windSpeed, windBearing;
+let apiData;
 
 // constants
 const MAX_RAINDROPS = 50;
@@ -40,6 +41,7 @@ function init() {
 
     axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=b406b30cf8dbd15a42c8820cf94b8c2c`)
       .then(({ data }) => {
+        apiData = data;
         geoloc.innerHTML = `${data.coord.lat}° ${data.coord.lon}°`;
 
         temperature = `${Math.floor(data.main.temp - 273)}°C`;
@@ -98,7 +100,7 @@ function update(dt) {
     raindrops = raindrops.filter(rain => !rain.dead);
 
     if (raindrops.length < MAX_RAINDROPS) 
-      if (Math.random() < 0.63)
+      if (Math.random() < (apiData.rain['3h'] * 0.9) || 0.64)
         raindrops.push(makeRaindrop());
   }
 }
