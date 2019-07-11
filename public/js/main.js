@@ -13,7 +13,7 @@ let raindrops, weatherType, temperature, cloudCover, windSpeed, windBearing;
 let apiData;
 
 // constants
-const MAX_RAINDROPS = 50;
+const MAX_RAINDROPS = 150;
 const SPEED_SCALE = 220;
 // const SPEED_SCALE = 550;
 
@@ -87,7 +87,7 @@ function loop() {
 
 function update(dt) {
   // raindrops
-  if (weatherType == 'rain') {
+  if (weatherType == 'rain' || weatherType == 'thunderstorm') {
     raindrops.forEach(rain => {
       rain.x += rain.vx * dt;
       rain.y += rain.vy * dt;
@@ -99,9 +99,12 @@ function update(dt) {
 
     raindrops = raindrops.filter(rain => !rain.dead);
 
-    if (raindrops.length < MAX_RAINDROPS) 
-      if (Math.random() < (apiData.rain['3h'] * 0.9) || 0.64)
-        raindrops.push(makeRaindrop());
+    if (raindrops.length < MAX_RAINDROPS - 10) 
+      if (Math.random() < 0.8) {
+        let n = Math.floor(Math.random() * 10);
+        while (n--) 
+          raindrops.push(makeRaindrop());
+      }
   }
 }
 
