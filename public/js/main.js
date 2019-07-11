@@ -34,20 +34,24 @@ function init() {
   getClientLocation(position => {
     const { latitude, longitude } = position.coords;
     const geoloc = document.querySelector('#geoloc');
-    geoloc.innerHTML = `${latitude}°C ${longitude}°C`;
+    geoloc.innerHTML = `${latitude.toPrecision(2)}°C ${longitude.toPrecision(2)}°C`;
 
-    fetch(`https://api.darksky.net/forecast/14c7911ea7429f47bda5beea8570ce98/${latitude},${longitude}?exclude=minutely,hourly,daily,alerts,flags`, {
+    fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=b406b30cf8dbd15a42c8820cf94b8c2c`, {
       method: 'GET',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then(({ data }) => {
-      temperature = `${data.currently.temperature}°C`;
-      weatherType = data.currently.icon;
-      cloudCover = data.currently.cloudCover;
-      windSpeed = data.currently.windSpeed;
-      windBearing = data.currently.windBearing;
+    })
+    .then(console.log)
+    .then(resp => resp.json())
+    .then((data) => {
+      console.log(data)
+      temperature = `${data.main.temperature}°C`;
+      weatherType = data.weather.main.toLowerCase();
+      cloudCover = data.clouds.all / 2;
+      windSpeed = data.wind.speed;
+      windBearing = data.wind.deg;
 
       document.querySelector('.wrapper').classList.remove('loading');
       loop();
